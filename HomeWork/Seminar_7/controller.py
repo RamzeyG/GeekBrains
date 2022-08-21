@@ -9,13 +9,15 @@ import input_data
 def FindContact():
     UserInput = input('Для поиска введите Фамилию, Имя, Отчество или номер телефона:\n')
     
-    conn = sqlite3.connect("phonebook.db") 
+    conn = sqlite3.connect("Homework/Seminar_7/phonebook.db") 
     cursor = conn.cursor()
     Output = ''
+    print(f'По вашему запросу найдено:\n')
     for row in cursor.execute("SELECT rowid, * FROM Phonebook"):
+        
         for i in row:
             if (str(i) == str(UserInput)):
-                print(f'По вашему запросу найдено:\n{row}')
+                print(f'{row}')
                 Output = Output + str(i)
     if(Output == ''):
         print(f'К сожалению по запросу {UserInput} ничего не найдено')
@@ -24,7 +26,7 @@ def FindContact():
 def DeleteContact():
     print('Выберите контакт из списка для удаления:')
     
-    conn = sqlite3.connect("phonebook.db") 
+    conn = sqlite3.connect("Homework/Seminar_7/phonebook.db") 
     cursor = conn.cursor()
     c = []
     for row in cursor.execute("SELECT rowid, * FROM Phonebook ORDER BY rowid"):
@@ -38,7 +40,7 @@ def DeleteContact():
         UserInput = input('Ошибочный ввод, пожалуйста выберите номер контакта из списка выше: \n')
         if(UserInput.isdigit() == False):
             UserInput = ' '
-    conn = sqlite3.connect("phonebook.db") 
+    conn = sqlite3.connect("Homework/Seminar_7/phonebook.db") 
     cursor = conn.cursor()
     
     cursor.execute(f"DELETE FROM phonebook WHERE rowid={int(UserInput)}")
@@ -60,7 +62,7 @@ def AddContact():
             PhoneNumber = ' '
     PhoneDescription = input('Введите описание номера')
     
-    conn = sqlite3.connect("phonebook.db") 
+    conn = sqlite3.connect("Homework/Seminar_7/phonebook.db") 
     cursor = conn.cursor()
     
     cursor.execute("INSERT INTO Phonebook (SurName, FirstName, Patronymic, PhoneNumber, PhoneDescription) VALUES (?, ?, ?, ?, ?)", (SurName, FirstName, Patronymic, PhoneNumber, PhoneDescription))
@@ -70,8 +72,8 @@ def AddContact():
     input_data.FuncContinue()
 
 def ImportContacts():
-    with open ('import.txt', 'r', encoding='utf-8') as i:
-        conn = sqlite3.connect("phonebook.db") 
+    with open ('Homework/Seminar_7/import.txt', 'r', encoding='utf-8') as i:
+        conn = sqlite3.connect("Homework/Seminar_7/phonebook.db") 
         cursor = conn.cursor()
         
         for j in i.readlines():
@@ -91,11 +93,11 @@ def ImportContacts():
         input_data.FuncContinue()
 
 def ExportContacts():
-    conn = sqlite3.connect("phonebook.db") 
+    conn = sqlite3.connect("Homework/Seminar_7/phonebook.db") 
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM phonebook")
     records = cursor.fetchall()
-    with open('export.txt', 'a', encoding='utf-8') as e:
+    with open('Homework/Seminar_7/export.txt', 'a', encoding='utf-8') as e:
         for i in records:
             e.write(str(i).replace('(', ')').replace(')', '') + '**')
     print('Контакты записаны в файл export.txt')

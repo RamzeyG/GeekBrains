@@ -29,7 +29,7 @@ finally:
         
         
         
-conn = sqlite3.connect("phonebook.db") 
+conn = sqlite3.connect("Homework/Seminar_7/phonebook.db") 
 cursor = conn.cursor()
 cursor.execute("INSERT INTO Phonebook (SurName, FirstName, Patronymic, PhoneNumber, PhoneDescription) VALUES (?, ?, ?, ?, ?)", ('Иванов', 'Иван', 'Иванович', 4569999945, 'домашний'))
 conn.commit()
