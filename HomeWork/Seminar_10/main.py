@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from tkinter import N
 import telebot;
 from data import BotToken
 import requests
